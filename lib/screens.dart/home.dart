@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:highfive/constants/colors.dart';
 import 'package:highfive/main.dart';
 import 'package:highfive/screens.dart/chat.dart';
+import 'dart:io';
+import 'dart:convert';
+import 'dart:async';
+import 'package:tcp_socket_connection/tcp_socket_connection.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -13,6 +17,37 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  TcpSocketConnection socketConnection =
+      TcpSocketConnection("192.168.1.113", 10251);
+
+  String message = "";
+
+  @override
+  void initState() {
+    super.initState();
+    startConnection();
+  }
+
+  //receiving and sending back a custom message
+  void messageReceived(String msg) {
+    setState(() {
+      message = msg;
+    });
+    socketConnection.sendMessage("MessageIsReceived :D ");
+  }
+
+  //starting the connection and listening to the socket asynchronously
+  void startConnection() async {
+    print("starting");
+    socketConnection.enableConsolePrint(
+        true); //use this to see in the console what's happening
+    if (await socketConnection.canConnect(5000, attempts: 3)) {
+      //check if it's possible to connect to the endpoint
+      await socketConnection.connect(5000, messageReceived, attempts: 3);
+    }
+  }
+  ////////////////////////////////
+
   bool firstSelected = true;
   @override
   Widget build(BuildContext context) {
@@ -51,7 +86,10 @@ class _HomeState extends State<Home> {
                     MaterialButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        Navigator.pop(context);
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(builder: ((context) => App())),
+                            (route) => false);
                       },
                       color: AppColors.accentGreen,
                       minWidth: 100,
@@ -71,6 +109,9 @@ class _HomeState extends State<Home> {
           children: [
             const SizedBox(
               height: 20,
+            ),
+            Text(
+              'You have received ' + message,
             ),
             Row(
               children: [

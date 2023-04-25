@@ -23,6 +23,7 @@ class Message extends StatelessWidget {
       Color.fromARGB(255, 255, 216, 59),
     ];
     return ListTile(
+      contentPadding: EdgeInsets.all(0),
       title: Text(
         name,
         style: TextStyle(color: getNewColor(nameColors)),

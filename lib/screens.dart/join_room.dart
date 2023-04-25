@@ -21,9 +21,12 @@ class _JoinRoomState extends State<JoinRoom> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
-              "assets/images/createroom.png",
-              scale: 4,
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Image.asset(
+                "assets/images/createroom.png",
+                scale: 4,
+              ),
             ),
             Column(
               children: const [
