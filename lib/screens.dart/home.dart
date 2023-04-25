@@ -1,16 +1,19 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:highfive/constants/colors.dart';
+import 'package:highfive/main.dart';
 import 'package:highfive/screens.dart/chat.dart';
 
-class TeacherHome extends StatefulWidget {
-  const TeacherHome({super.key});
+class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
-  State<TeacherHome> createState() => _TeacherHomeState();
+  State<Home> createState() => _HomeState();
 }
 
-class _TeacherHomeState extends State<TeacherHome> {
-  bool firstSelected = false;
+class _HomeState extends State<Home> {
+  bool firstSelected = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +32,37 @@ class _TeacherHomeState extends State<TeacherHome> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: const Icon(Icons.arrow_back),
+        leading: IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text("Are you sure you want to exit the classroom?"),
+                  actions: [
+                    MaterialButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      color: Color.fromARGB(255, 245, 84, 81),
+                      minWidth: 100,
+                      height: 40,
+                      child: Text("No"),
+                    ),
+                    MaterialButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
+                      color: AppColors.accentGreen,
+                      minWidth: 100,
+                      height: 40,
+                      child: Text("Yes"),
+                    )
+                  ],
+                ),
+              );
+            },
+            icon: Icon(Icons.arrow_back)),
         title: const Text("Wayne's Class"),
       ),
       body: Padding(
@@ -79,22 +112,52 @@ class _TeacherHomeState extends State<TeacherHome> {
                     child: ListView.builder(
                         itemCount: 5,
                         itemBuilder: ((context, index) => Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "${index + 1}: frooti",
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 18),
-                                  ),
-                                  const Icon(
-                                    Icons.remove_circle_outline_outlined,
-                                    color: Color.fromARGB(255, 255, 129, 120),
-                                  )
-                                ],
+                              padding: const EdgeInsets.symmetric(vertical: 20),
+                              child: GestureDetector(
+                                onLongPress: () {
+                                  isTeacher
+                                      ? showDialog(
+                                          context: context,
+                                          builder: ((context) => AlertDialog(
+                                                title: Text(
+                                                    "Remove frooti from class?"),
+                                                actions: [
+                                                  MaterialButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    color: Color.fromARGB(
+                                                        255, 245, 84, 81),
+                                                    minWidth: 100,
+                                                    height: 40,
+                                                    child: Text("No"),
+                                                  ),
+                                                  MaterialButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    color:
+                                                        AppColors.accentGreen,
+                                                    minWidth: 100,
+                                                    height: 40,
+                                                    child: Text("Yes"),
+                                                  )
+                                                ],
+                                              )))
+                                      : print("no access");
+                                },
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "${index + 1}: frooti",
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 18),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ))))
                 : Expanded(
@@ -103,7 +166,38 @@ class _TeacherHomeState extends State<TeacherHome> {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [Text("Files"), Icon(Icons.add)],
+                        children: [
+                          Text("Files"),
+                          isTeacher
+                              ? IconButton(
+                                  icon: Icon(Icons.add),
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: ((context) => AlertDialog(
+                                              title:
+                                                  Text("Add your files here"),
+                                              content: TextFormField(
+                                                maxLines: 1,
+                                                decoration: InputDecoration(
+                                                    hintText: "Type here..."),
+                                              ),
+                                              actions: [
+                                                MaterialButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  color: AppColors.accentGreen,
+                                                  minWidth: 100,
+                                                  height: 40,
+                                                  child: Text("Send"),
+                                                )
+                                              ],
+                                            )));
+                                  },
+                                )
+                              : SizedBox()
+                        ],
                       ),
                       const SizedBox(
                         height: 20,
@@ -118,7 +212,37 @@ class _TeacherHomeState extends State<TeacherHome> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [Text("Polls"), Icon(Icons.add)],
+                        children: [
+                          Text("Polls"),
+                          isTeacher
+                              ? IconButton(
+                                  icon: Icon(Icons.add),
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: ((context) => AlertDialog(
+                                              title: Text("Add your poll here"),
+                                              content: TextFormField(
+                                                maxLines: 1,
+                                                decoration: InputDecoration(
+                                                    hintText: "Type here..."),
+                                              ),
+                                              actions: [
+                                                MaterialButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  color: AppColors.accentGreen,
+                                                  minWidth: 100,
+                                                  height: 40,
+                                                  child: Text("Send"),
+                                                )
+                                              ],
+                                            )));
+                                  },
+                                )
+                              : SizedBox()
+                        ],
                       ),
                       const SizedBox(
                         height: 20,
@@ -133,9 +257,37 @@ class _TeacherHomeState extends State<TeacherHome> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children: [
                           Text("Announcements"),
-                          Icon(Icons.add)
+                          isTeacher
+                              ? IconButton(
+                                  icon: Icon(Icons.add),
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: ((context) => AlertDialog(
+                                              title: Text(
+                                                  "Add your announcement text here"),
+                                              content: TextFormField(
+                                                maxLines: 1,
+                                                decoration: InputDecoration(
+                                                    hintText: "Type here..."),
+                                              ),
+                                              actions: [
+                                                MaterialButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  color: AppColors.accentGreen,
+                                                  minWidth: 100,
+                                                  height: 40,
+                                                  child: Text("Send"),
+                                                )
+                                              ],
+                                            )));
+                                  },
+                                )
+                              : SizedBox()
                         ],
                       ),
                       const SizedBox(

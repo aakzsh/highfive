@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:highfive/constants/colors.dart';
+import 'package:highfive/main.dart';
 import 'package:highfive/screens.dart/create_room.dart';
+import 'package:highfive/screens.dart/home.dart';
 
 class JoinRoom extends StatefulWidget {
   const JoinRoom({super.key});
@@ -45,7 +47,15 @@ class _JoinRoomState extends State<JoinRoom> {
             Column(
               children: [
                 MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      isTeacher = false;
+                    });
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: ((context) => const Home())),
+                        (route) => false);
+                  },
                   color: AppColors.accentGreen,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5)),

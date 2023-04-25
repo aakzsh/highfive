@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:highfive/constants/colors.dart';
+import 'package:highfive/main.dart';
 import 'package:highfive/screens.dart/home.dart';
 import 'package:highfive/screens.dart/join_room.dart';
 
@@ -47,10 +48,11 @@ class _CreateRoomState extends State<CreateRoom> {
               children: [
                 MaterialButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const TeacherHome()));
+                    setState(() {
+                      isTeacher = true;
+                    });
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Home()));
                   },
                   color: AppColors.accentGreen,
                   shape: RoundedRectangleBorder(

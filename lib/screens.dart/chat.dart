@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:highfive/constants/colors.dart';
+import 'package:highfive/constants/message_widget.dart';
 
 class Chat extends StatefulWidget {
   const Chat({super.key});
@@ -9,19 +10,27 @@ class Chat extends StatefulWidget {
 }
 
 class _ChatState extends State<Chat> {
+  List<Map<String, String>> chats = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: const Icon(Icons.arrow_back),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back)),
         title: const Text("Chat"),
         actions: const [
           Center(
-            child: Text(
-              "Wayne's Class",
-              style: TextStyle(color: Colors.white54),
+            child: Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: Text(
+                "Wayne's Class",
+                style: TextStyle(color: Colors.white54),
+              ),
             ),
           )
         ],
@@ -31,9 +40,13 @@ class _ChatState extends State<Chat> {
         child: Column(
           children: [
             Expanded(
-                child: Container(
-              color: Colors.lightBlue,
-            )),
+                child: ListView.builder(
+                    reverse: true,
+                    itemCount: 3,
+                    itemBuilder: ((context, index) => Message(
+                        content: "hello just checking",
+                        datetime: DateTime.now(),
+                        name: "Amanda")))),
             const SizedBox(
               height: 10,
             ),
