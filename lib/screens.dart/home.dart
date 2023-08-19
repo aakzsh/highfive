@@ -1,12 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:highfive/constants/colors.dart';
 import 'package:highfive/main.dart';
 import 'package:highfive/screens.dart/chat.dart';
-import 'dart:io';
-import 'dart:convert';
-import 'dart:async';
 import 'package:tcp_socket_connection/tcp_socket_connection.dart';
 
 class Home extends StatefulWidget {
@@ -72,35 +67,37 @@ class _HomeState extends State<Home> {
               showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
-                  title: Text("Are you sure you want to exit the classroom?"),
+                  title: const Text(
+                      "Are you sure you want to exit the classroom?"),
                   actions: [
                     MaterialButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      color: Color.fromARGB(255, 245, 84, 81),
+                      color: const Color.fromARGB(255, 245, 84, 81),
                       minWidth: 100,
                       height: 40,
-                      child: Text("No"),
+                      child: const Text("No"),
                     ),
                     MaterialButton(
                       onPressed: () {
                         Navigator.pop(context);
                         Navigator.pushAndRemoveUntil(
                             context,
-                            MaterialPageRoute(builder: ((context) => App())),
+                            MaterialPageRoute(
+                                builder: ((context) => const App())),
                             (route) => false);
                       },
                       color: AppColors.accentGreen,
                       minWidth: 100,
                       height: 40,
-                      child: Text("Yes"),
+                      child: const Text("Yes"),
                     )
                   ],
                 ),
               );
             },
-            icon: Icon(Icons.arrow_back)),
+            icon: const Icon(Icons.arrow_back)),
         title: const Text("Wayne's Class"),
       ),
       body: Padding(
@@ -111,7 +108,7 @@ class _HomeState extends State<Home> {
               height: 20,
             ),
             Text(
-              'You have received ' + message,
+              'You have received $message',
             ),
             Row(
               children: [
@@ -160,18 +157,18 @@ class _HomeState extends State<Home> {
                                       ? showDialog(
                                           context: context,
                                           builder: ((context) => AlertDialog(
-                                                title: Text(
+                                                title: const Text(
                                                     "Remove frooti from class?"),
                                                 actions: [
                                                   MaterialButton(
                                                     onPressed: () {
                                                       Navigator.pop(context);
                                                     },
-                                                    color: Color.fromARGB(
+                                                    color: const Color.fromARGB(
                                                         255, 245, 84, 81),
                                                     minWidth: 100,
                                                     height: 40,
-                                                    child: Text("No"),
+                                                    child: const Text("No"),
                                                   ),
                                                   MaterialButton(
                                                     onPressed: () {
@@ -181,7 +178,7 @@ class _HomeState extends State<Home> {
                                                         AppColors.accentGreen,
                                                     minWidth: 100,
                                                     height: 40,
-                                                    child: Text("Yes"),
+                                                    child: const Text("Yes"),
                                                   )
                                                 ],
                                               )))
@@ -208,20 +205,22 @@ class _HomeState extends State<Home> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Files"),
+                          const Text("Files"),
                           isTeacher
                               ? IconButton(
-                                  icon: Icon(Icons.add),
+                                  icon: const Icon(Icons.add),
                                   onPressed: () {
                                     showDialog(
                                         context: context,
                                         builder: ((context) => AlertDialog(
-                                              title:
-                                                  Text("Add your files here"),
+                                              title: const Text(
+                                                  "Add your files here"),
                                               content: TextFormField(
                                                 maxLines: 1,
-                                                decoration: InputDecoration(
-                                                    hintText: "Type here..."),
+                                                decoration:
+                                                    const InputDecoration(
+                                                        hintText:
+                                                            "Type here..."),
                                               ),
                                               actions: [
                                                 MaterialButton(
@@ -231,13 +230,13 @@ class _HomeState extends State<Home> {
                                                   color: AppColors.accentGreen,
                                                   minWidth: 100,
                                                   height: 40,
-                                                  child: Text("Send"),
+                                                  child: const Text("Send"),
                                                 )
                                               ],
                                             )));
                                   },
                                 )
-                              : SizedBox()
+                              : const SizedBox()
                         ],
                       ),
                       const SizedBox(
@@ -254,19 +253,22 @@ class _HomeState extends State<Home> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Polls"),
+                          const Text("Polls"),
                           isTeacher
                               ? IconButton(
-                                  icon: Icon(Icons.add),
+                                  icon: const Icon(Icons.add),
                                   onPressed: () {
                                     showDialog(
                                         context: context,
                                         builder: ((context) => AlertDialog(
-                                              title: Text("Add your poll here"),
+                                              title: const Text(
+                                                  "Add your poll here"),
                                               content: TextFormField(
                                                 maxLines: 1,
-                                                decoration: InputDecoration(
-                                                    hintText: "Type here..."),
+                                                decoration:
+                                                    const InputDecoration(
+                                                        hintText:
+                                                            "Type here..."),
                                               ),
                                               actions: [
                                                 MaterialButton(
@@ -276,13 +278,13 @@ class _HomeState extends State<Home> {
                                                   color: AppColors.accentGreen,
                                                   minWidth: 100,
                                                   height: 40,
-                                                  child: Text("Send"),
+                                                  child: const Text("Send"),
                                                 )
                                               ],
                                             )));
                                   },
                                 )
-                              : SizedBox()
+                              : const SizedBox()
                         ],
                       ),
                       const SizedBox(
@@ -299,20 +301,22 @@ class _HomeState extends State<Home> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Announcements"),
+                          const Text("Announcements"),
                           isTeacher
                               ? IconButton(
-                                  icon: Icon(Icons.add),
+                                  icon: const Icon(Icons.add),
                                   onPressed: () {
                                     showDialog(
                                         context: context,
                                         builder: ((context) => AlertDialog(
-                                              title: Text(
+                                              title: const Text(
                                                   "Add your announcement text here"),
                                               content: TextFormField(
                                                 maxLines: 1,
-                                                decoration: InputDecoration(
-                                                    hintText: "Type here..."),
+                                                decoration:
+                                                    const InputDecoration(
+                                                        hintText:
+                                                            "Type here..."),
                                               ),
                                               actions: [
                                                 MaterialButton(
@@ -322,13 +326,13 @@ class _HomeState extends State<Home> {
                                                   color: AppColors.accentGreen,
                                                   minWidth: 100,
                                                   height: 40,
-                                                  child: Text("Send"),
+                                                  child: const Text("Send"),
                                                 )
                                               ],
                                             )));
                                   },
                                 )
-                              : SizedBox()
+                              : const SizedBox()
                         ],
                       ),
                       const SizedBox(

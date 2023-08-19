@@ -1,10 +1,5 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:highfive/constants/colors.dart';
-import 'package:highfive/screens.dart/chat.dart';
-import 'package:highfive/screens.dart/home.dart';
 import 'package:highfive/screens.dart/join_room.dart';
 
 void main() async {
